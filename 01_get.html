@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+    <style>
+        #resule {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #90b;
+        }
+    </style>
+</head>
+<body>
+    <button>發送請求</button>
+    <div id="resule"></div>
+
+    <script>
+        // 獲取button
+        const btn = document.getElementsByTagName('button')[0];
+        const resule = document.getElementById('resule');
+        // 綁定事件
+        btn.onclick = function () {
+            // AJAX步驟
+            // 1. 創建物件
+            const xhr = new XMLHttpRequest();
+            // 2. 初始化,並設置方法和URL
+            xhr.open('GET',"Http://127.0.0.1:9000/server");
+            // 3. 發送
+            xhr.send();
+            // 4. 事件綁定,處理服務端返回結果
+            // readystate有 0~4 狀態 分別代表
+            // 0 : 未初始化
+            // 1 : open()方法已經調用完畢
+            // 2 : send()方法已調用完畢
+            // 3 : 服務端返回部分結果
+            // 4 : 服務端返回所有結果
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    // 表示服務端返回全部結果
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        // 表示響應成功
+                        // 1. 響應行
+                        // 狀態碼
+                        console.log(xhr.status); 
+                        // 響應字串
+                        console.log(xhr.statusText);
+                        // 所有響應頭
+                        console.log(xhr.getAllResponseHeaders());
+                        // 響應體
+                        console.log(xhr.response);
+
+                        resule.innerHTML = xhr.response;
+                    }else{
+
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
