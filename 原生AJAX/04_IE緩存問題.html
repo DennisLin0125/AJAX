@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IE緩存</title>
+    <style>
+        #resule {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #90b;
+        }
+    </style>
+</head>
+<body>
+    <button>點擊觸發AJAX</button>
+    <div id="resule"></div>
+
+    <script>
+        const btn = document.getElementsByTagName('button')[0];
+        const resule = document.getElementById('resule');
+        // 綁定事件
+        btn.addEventListener('click',function(){
+            // 1. 創建物件
+            const xhr = new XMLHttpRequest();
+            // 2. 清除IE緩存設置方法
+            xhr.open('GET',"Http://127.0.0.1:9000/ie?t=" + Date.now());
+            // 3. 發送
+            xhr.send();
+            // 4. 事件綁定,處理服務端返回結果
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    // 表示服務端返回全部結果
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        // 表示響應成功
+                        resule.innerHTML = xhr.response;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

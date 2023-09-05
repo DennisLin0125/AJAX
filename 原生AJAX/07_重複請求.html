@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重複請求</title>
+</head>
+<body>
+    <button>發送請求</button>
+    <script>
+        // 獲取button
+        const btns = document.querySelectorAll('button');
+        
+        let xhr = null;
+
+        // 是否正在傳送AJAX請求
+        let isSend = false;
+    
+        btns[0].onclick = function () {
+
+            //如果正在發送則取消該請求,創建一個新請求
+            if (isSend) xhr.abort();
+
+            xhr = new XMLHttpRequest();
+            // 表示正在發送
+            isSend = true;
+            xhr.open('GET',"Http://127.0.0.1:9000/delay");
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    // 修改變數
+                    isSend = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX</title>
+    <style>
+        #resule {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #90b;
+        }
+    </style>
+</head>
+<body>
+    <span>當滑鼠點擊框內即觸發AJAX</span>
+    <div id="resule"></div>
+
+    <script>
+        const resule = document.getElementById('resule');
+        // 綁定事件
+        resule.addEventListener("mouseover", function(){
+            // 1. 創建物件
+            const xhr = new XMLHttpRequest();
+            // 2. 初始化,並設置方法和URL
+            xhr.open('POST',"Http://127.0.0.1:9000/server");
+            // 3. 發送
+            xhr.send("a=100&b=200&c=300");
+            // 4. 事件綁定,處理服務端返回結果
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    // 表示服務端返回全部結果
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        // 表示響應成功
+                        resule.innerHTML = xhr.response;
+                    }else{
+
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
