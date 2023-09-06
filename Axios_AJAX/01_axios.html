@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入bootstrap -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- 引入Axios -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.6/axios.js"></script>
+    <title>Axios 發送 AJAX</title>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">Axios 發送 AJAX</h2>
+        <button class="btn btn-primary">GET</button>
+        <button class="btn btn-danger">POST</button>
+        <button class="btn btn-info">AJAX</button>
+    </div>
+</body>
+    <script>
+        // 給按鈕綁定事件
+        const btns = document.querySelectorAll('button');
+        // 配置defaul url
+        axios.defaults.baseURL = "http://127.0.0.1:9000"
+        // GET
+        btns[0].onclick = function(){
+            axios.get("/axios-server", {
+                // url參數
+                params: {
+                    id: 100,
+                    vip: 7
+                },
+                headers: {
+                    name: "dennis"
+                }
+            }).then(value => {
+                console.log(value);
+            })
+        }
+        // POST
+        btns[1].onclick = function(){
+            axios.post("/axios-server",
+                // 請求體 
+                {
+                    data: {
+                        username: "admin",
+                        password: "admin"
+                    }
+                },
+                {
+                    //url
+                    params: {
+                        id: 200,
+                        vip: 9
+                    },
+                    headers: {
+                        name: "dennis_POST"
+                    }
+                }
+            );
+        }
+        // AJAX
+        btns[2].onclick = function(){
+            axios({
+                method: "POST",
+                //url
+                url: "/axios-server",
+                //參數
+                params: {
+                    vip:300,
+                    id:2
+                },
+                headers: {
+                    a: 100,
+                    b: 300
+                },
+                data: {
+                    username: "admin",
+                    password: "admin"
+                }
+            }).then(res => {
+                console.log(res);
+            })
+        }
+    </script>
+</html>

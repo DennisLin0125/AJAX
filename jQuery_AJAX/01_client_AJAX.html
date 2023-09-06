@@ -30,5 +30,25 @@
                 console.log(data);
             },'json')
         })
+
+        $('button').eq(2).click(function(){
+            $.ajax({
+                url: "http://127.0.0.1:9000/jQuery-server",
+                data:{a:100,b:200},
+                type: "GET",
+                dataType: "json",
+                timeout: 2000,
+                success:function(data){
+                    console.log(data);
+                },
+                error: function(){
+                    console.log("錯誤!!!");
+                },
+                headers: {
+                    c:200,
+                    d:500
+                }
+            })
+        })
     </script>
 </html>

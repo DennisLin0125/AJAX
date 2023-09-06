@@ -45,9 +45,11 @@ app.get('/delay', (req,res) => {
 });
 
 // jQuery 服務
-app.get('/jQuery-server', (req,res) => {
+app.all('/jQuery-server', (req,res) => {
     // 允許跨域
     res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers','*');
+    
     // 響應一個json
     const data = {
         name: "dennis_GET"
@@ -64,6 +66,32 @@ app.post('/jQuery-server', (req,res) => {
     // 響應一個json
     const data = {
         name: "dennis_POST"
+    }
+    let str = JSON.stringify(data);
+    res.send(str);
+});
+
+// Axios 服務
+app.all('/axios-server', (req,res) => {
+    // 允許跨域
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers','*');
+    // 響應一個json
+    const data = {
+        name: "HELLO AXIOS"
+    }
+    let str = JSON.stringify(data);
+    res.send(str);
+});
+
+// fetch 服務
+app.all('/fetch-server', (req,res) => {
+    // 允許跨域
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Headers','*');
+    // 響應一個json
+    const data = {
+        name: "HELLO AXIOS"
     }
     let str = JSON.stringify(data);
     res.send(str);
